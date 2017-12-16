@@ -32,10 +32,10 @@
 // @downloadURL     http://usa.x10host.com/mybb/script/295074.user.js
 // @updateURL       http://usa.x10host.com/mybb/script/295074.user.js
 // @noframes
-// @version			1.4.3.0
+// @version			1.4.3.2
 // ==/UserScript==
 
-var War_version = "1.4.3.0 December 09, 2017";
+var War_version = "1.4.3.2 December 16, 2017";
 
 //separate alternative domains with "|" char (first name is considered being main)
 var allHostNames = [
@@ -385,6 +385,7 @@ var allHostNames = [
 	"openload.io",
 	"upnito.sk",
 	"oload.net",
+    "cloudyfiles.org",
          
 ];
 
@@ -3562,7 +3563,7 @@ function k2sRequest(K2SLink)
 						return;
 					}
 					
-					if (res.match('Premium only|only for premium members'))
+					if (res.match('Premium only|only for Premium members'))
 					{
 						DisplayTheCheckedLinks([K2SLink], 'prem_link');
 						return;
@@ -9292,7 +9293,7 @@ function start(filterId)
       'optional2--',
 			"//a[contains(@href,'multiup.org') or contains(@href,'multiup.eu')]"
 			);
-		} 
+		}
 	  if (GM_getValue("Check_file_dot_al_links", false))
 		{
 			addFileHost(
@@ -9728,7 +9729,7 @@ function start(filterId)
 		if (GM_getValue("Check_uloz_dot_to_links", false)) 
 		{
 			addFileHost(
-			"uloz\.to",
+			"uloz\.to\/\\w+",
 			'limitedDownloadButton|Stáhnout pomalu',
 			'grayButton deletedFile">|Stránka nenalezena|upload-button"|jako soukromý.',
 			'optional1--',
@@ -10242,12 +10243,12 @@ function start(filterId)
 		if (GM_getValue("Check_cloudyfiles_dot_org_links", false)) 
 		{
 			addFileHost(
-			"cloudyfiles\.com",
+			"cloudyfiles\\.(?:org|com)\/\\w+",
 			'name="method_free"',
 			'File Not Found',
 			'optional1--',
       'optional2',
-			"//a[contains(@href,'cloudyfiles.com')]");
+			"//a[contains(@href,'cloudyfiles.com') or contains(@href,'cloudyfiles.org')]");
 		}
 		if (GM_getValue("Check_bittfox_dot_com_links", false)) 
 		{
@@ -10682,6 +10683,17 @@ function parseCustomRules(rulesStr)
 
 
 /* ********************UPDATES********************
+December 16, 2017
+Version 1.4.3.3
+added cloudyfiles.org
+
+December 16, 2017
+Version 1.4.3.2
+fixed keep2share not detecting some premium links
+
+December 15, 2017
+Version 1.4.3.1
+fixed uloz.to
 
 December 09, 2017
 Version 1.4.3.0
