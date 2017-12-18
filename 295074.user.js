@@ -32,15 +32,17 @@
 // @downloadURL     http://usa.x10host.com/mybb/script/295074.user.js
 // @updateURL       http://usa.x10host.com/mybb/script/295074.user.js
 // @noframes
-// @version			1.4.3.3
+// @version			1.4.3.5
 // ==/UserScript==
 
-var War_version = "1.4.3.3 December 16, 2017";
+var War_version = "1.4.3.5 December 17, 2017";
 
 //separate alternative domains with "|" char (first name is considered being main)
 var allHostNames = [
  "1fichier.com|dl4free.com",
 	"k-upload.com|k-upload.fr",
+	"vshare.io",
+	"anonfile.com",
 	"drop.me",
 	"bittfox.com",
 	"cloudyfiles.com|cloudyfiles.org",
@@ -78,6 +80,7 @@ var allHostNames = [
 	"drive.google.com",
 	"suprafiles.net",
 	"suprafiles.co",
+	"suprafiles.org",
 	"fileflares.com",
 	"erafile.com",
 	"mystore.to",
@@ -9771,7 +9774,7 @@ function start(filterId)
 			"subyshare\.com\/\\w+",
 			'id="method_free',
 			'file was removed|class="err">|1s">404',
-			'This server is in maintenance mode',
+			'This server is in maintenance mode|m human"',
       'optional2',
 			"//a[contains(@href,'subyshare.com')]",
 			true);
@@ -9915,6 +9918,16 @@ function start(filterId)
 			'server is in maintenance mode',
       'optional2',
 			"//a[contains(@href,'suprafiles.co')]");
+		}
+		if (GM_getValue("Check_suprafiles_dot_org_links", false)) 
+		{
+			addFileHost(
+			"suprafiles\.org\/\\w+",
+			'name="method_free"',
+			'File Not Found|style="width:1000px; text-align: left;">',
+			'server is in maintenance mode',
+      'optional2',
+			"//a[contains(@href,'suprafiles.net') or contains(@href,'suprafiles.org')]");
 		}
 		if (GM_getValue("Check_upfiles_dot_net_links", false)) 
 		{
@@ -10279,6 +10292,26 @@ function start(filterId)
       'optional2--',
 			"//a[contains(@href,'k-upload.com') or contains(@href,'k-upload.fr/')]"
 			);
+		}
+		if (GM_getValue("Check_anonfile_dot_com_links", false)) 
+		{
+			addFileHost(
+			"anonfile\\.com",
+			'id="download-url" class="btn btn-primary btn-block" href=',
+			'<title>404 -',
+			'optional1--',
+      'optional2',
+			"//a[contains(@href,'anonfile.com')]");
+		}
+		if (GM_getValue("Check_vshare_dot_io_links", false)) 
+		{
+			addFileHost(
+			"vshare\\.io\/\\w+",
+			'id="download-url"|id="download-link"',
+			'<title>404 -',
+			'optional1--',
+      'optional2',
+			"//a[contains(@href,'vshare.io')]");
 		}
 	}
 //start here
@@ -10682,6 +10715,18 @@ function parseCustomRules(rulesStr)
 
 
 /* ********************UPDATES********************
+
+
+December 17, 2017
+Version 1.4.3.5
+added suprafiles.org
+fixed subyshare
+
+December 16, 2017
+Version 1.4.3.4
+added
+anonfile.com
+vshare.io
 
 December 16, 2017
 Version 1.4.3.3
